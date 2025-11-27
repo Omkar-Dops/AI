@@ -1,0 +1,40 @@
+# DFS Implementation for the given graph
+
+# Graph adjacency list taken from the provided image
+graph = {
+    1: [2, 3],
+    2: [1, 4, 5],
+    3: [1, 6, 7],
+    4: [2, 8],
+    5: [2, 8],
+    6: [3, 8],
+    7: [3, 8],
+    8: [4, 5, 6, 7]
+}
+
+visited = []  # To keep track of visited nodes
+
+def dfs(start, goal):
+    stack = [start]
+
+    while stack:
+        node = stack.pop()
+
+        if node not in visited:
+            visited.append(node)
+            print("Visited:", node)
+
+            if node == goal:
+                print("\nGoal node found:", goal)
+                return
+
+            # Add neighbors to stack (reverse for correct DFS order)
+            for neighbor in reversed(graph[node]):
+                if neighbor not in visited:
+                    stack.append(neighbor)
+
+    print("Goal node not found!")
+
+
+# Run DFS from node 1 to 8
+dfs(1, 8)
