@@ -1,0 +1,43 @@
+import random
+
+# Function to maximize
+def f(x):
+    return -x**2 + 4*x
+
+# Hill Climbing Algorithm
+def hill_climbing(start_x, step_size=0.1, max_iterations=1000):
+    current_x = start_x
+    current_val = f(current_x)
+
+    for i in range(max_iterations):
+        # Check neighbours
+        left_x = current_x - step_size
+        right_x = current_x + step_size
+
+        left_val = f(left_x)
+        right_val = f(right_x)
+
+        # If moving left improves value
+        if left_val > current_val:
+            current_x = left_x
+            current_val = left_val
+
+        # If moving right improves value
+        elif right_val > current_val:
+            current_x = right_x
+            current_val = right_val
+
+        # If no improvement → peak reached
+        else:
+            break
+
+    return current_x, current_val
+
+
+# START PROGRAM
+start = random.uniform(-10, 10)
+max_x, max_val = hill_climbing(start)
+
+print("Starting point:", start)
+print("Maximum found at x =", max_x)
+print("Maximum function value f(x) =", max_val)
