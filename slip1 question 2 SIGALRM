@@ -1,0 +1,46 @@
+#include <stdio.h>
+#include <unistd.h>
+#include <signal.h>
+#include <stdlib.h>
+
+void alarm_handler(int sig) {
+    printf("\nAlarm is fired! (Received SIGALRM)\n");
+}
+
+int main() {
+    pid_t pid;
+
+    // Register signal handler in parent
+    signal(SIGALRM, alarm_handler);
+
+    pid = fork();
+
+    if (pid < 0) {
+        perror("Fork Failed");
+        exit(1);
+    }
+
+    // Parent process
+    if (pid > 0) {
+        printf("Parent PID: %d\n", getpid());
+        printf("Parent waiting for SIGALRM...\n");
+
+        // Parent sleeps so child can send signal
+        sleep(10);
+
+        printf("Parent exiting...\n");
+    }
+    // Child process
+    else {
+        printf("Child PID: %d sending SIGALRM to parent...\n", getpid());
+
+        sleep(3); // delay before sending signal
+
+        kill(getppid(), SIGALRM); // send signal to parent
+        printf("Child sent SIGALRM to parent.\n");
+
+        exit(0);
+    }
+
+    return 0;
+}
