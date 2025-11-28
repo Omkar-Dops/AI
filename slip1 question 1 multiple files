@@ -1,0 +1,46 @@
+#include <stdio.h>
+#include <sys/stat.h>
+#include <stdlib.h>
+
+void print_file_type(mode_t mode) {
+    if (S_ISREG(mode))
+        printf("Regular File");
+    else if (S_ISDIR(mode))
+        printf("Directory");
+    else if (S_ISCHR(mode))
+        printf("Character Device");
+    else if (S_ISBLK(mode))
+        printf("Block Device");
+    else if (S_ISFIFO(mode))
+        printf("FIFO/Named Pipe");
+    else if (S_ISLNK(mode))
+        printf("Symbolic Link");
+    else if (S_ISSOCK(mode))
+        printf("Socket");
+    else
+        printf("Unknown Type");
+}
+
+int main(int argc, char *argv[]) {
+    if (argc < 2) {
+        printf("Usage: %s <files>\n", argv[0]);
+        return 1;
+    }
+
+    struct stat fileStat;
+
+    for (int i = 1; i < argc; i++) {
+        if (stat(argv[i], &fileStat) == -1) {
+            perror("Error");
+            continue;
+        }
+
+        printf("\nFile: %s\n", argv[i]);
+        printf("Inode Number: %ld\n", (long)fileStat.st_ino);
+        printf("File Type: ");
+        print_file_type(fileStat.st_mode);
+        printf("\n");
+    }
+
+    return 0;
+}
