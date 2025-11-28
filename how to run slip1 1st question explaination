@@ -1,0 +1,46 @@
+✅ HOW TO RUN THIS ON UBUNTU (Step-by-Step)
+1️⃣ Create a C file
+
+Open terminal and type:
+
+nano fileinfo.c
+
+
+Paste the above code → save with CTRL+O, then exit CTRL+X.
+
+2️⃣ Compile the program using gcc
+gcc fileinfo.c -o fileinfo
+
+
+If no errors → an executable fileinfo is created.
+
+3️⃣ Run the program with multiple file names
+
+Example:
+
+./fileinfo fileinfo.c /etc/passwd /bin/ls
+
+
+Example output:
+
+File: fileinfo.c
+Inode Number: 123456
+File Type: Regular File
+
+File: /etc/passwd
+Inode Number: 890123
+File Type: Regular File
+
+File: /bin/ls
+Inode Number: 456789
+File Type: Regular File
+
+✅ What examiners expect
+
+This program covers:
+
+✔ stat() system call
+✔ st_ino (inode number)
+✔ File type detection using macros
+✔ Command-line arguments
+✔ Loop for multiple files
