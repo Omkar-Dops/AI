@@ -1,0 +1,21 @@
+✅ How to Run on Ubuntu
+1️⃣ Create file
+nano sigalrm.c
+
+
+Paste code → Save (Ctrl+O) → Exit (Ctrl+X)
+
+2️⃣ Compile
+gcc sigalrm.c -o sigalrm
+
+3️⃣ Run
+./sigalrm
+
+Expected Output
+Parent PID: 4500
+Parent waiting for SIGALRM...
+Child PID: 4501 sending SIGALRM to parent...
+Child sent SIGALRM to parent.
+
+Alarm is fired! (Received SIGALRM)
+Parent exiting...
